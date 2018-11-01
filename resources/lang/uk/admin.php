@@ -7,6 +7,7 @@ return [
     'setting'               => 'Налаштування',
     'name'                  => 'Ім\'я',
     'username'              => 'Логін',
+    'email'                 => 'Email',
     'password'              => 'Пароль',
     'password_confirmation' => 'Підтвердження пароля',
     'remember_me'           => 'Запам\'ятати',

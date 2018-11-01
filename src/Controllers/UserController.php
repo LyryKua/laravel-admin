@@ -2,11 +2,15 @@
 
 namespace Encore\Admin\Controllers;
 
+use App\Mail\MailController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Mail;
+
+
 
 class UserController extends Controller
 {
@@ -147,6 +151,7 @@ class UserController extends Controller
 
         $form->text('username', trans('admin.username'))->rules('required');
         $form->text('name', trans('admin.name'))->rules('required');
+        $form->email('email', trans('admin.email'))->rules('required');
         $form->image('avatar', trans('admin.avatar'));
         $form->password('password', trans('admin.password'))->rules('required|confirmed');
         $form->password('password_confirmation', trans('admin.password_confirmation'))->rules('required')
@@ -164,10 +169,11 @@ class UserController extends Controller
 
         $form->saving(function (Form $form) {
             if ($form->password && $form->model()->password != $form->password) {
+                $mail = new MailController($form->name, $form->username, $form->password);
+                Mail::to($form->email)->send($mail);
                 $form->password = bcrypt($form->password);
             }
         });
-
         return $form;
     }
 }

@@ -15,10 +15,38 @@ class AdminTablesSeeder extends Seeder
     {
         // create a user.
         Administrator::truncate();
-        Administrator::create([
-            'username' => 'admin',
-            'password' => bcrypt('admin'),
-            'name'     => 'Administrator',
+        Administrator::insert([
+            [
+                'username' => 'admin',
+                'password' => bcrypt('admin'),
+                'name' => 'Administrator',
+                'email' => 'admin@admin.com'
+            ],
+            [
+                'username' => 'khrechen',
+                'password' => bcrypt('khrechen'),
+                'name' => 'Kyrylo Hrecheniyk',
+                'email' => 'khrechen@student.unit.ua'
+            ],
+            [
+                'username' => 'odemiany',
+                'password' => bcrypt('odemiany'),
+                'name' => 'Oleksandr Demianyshyn',
+                'email' => 'odemiany@student.unit.ua'
+            ],
+            [
+                'username' => 'orizhiy',
+                'password' => bcrypt('orizhiy'),
+                'name' => 'Olexandr Rizhiy',
+                'email' => 'orizhiy@student.unit.ua'
+            ],
+            [
+                'username' => 'apakhomo',
+                'password' => bcrypt('apakhomo'),
+                'name' => 'Artem Pakhomov',
+                'email' => 'apakhomo@student.unit.ua'
+            ],
+
         ]);
 
         // create a role.
@@ -29,7 +57,12 @@ class AdminTablesSeeder extends Seeder
         ]);
 
         // add role to user.
-        Administrator::first()->roles()->save(Role::first());
+        Administrator::find(1)->roles()->save(Role::first());
+        Administrator::find(2)->roles()->save(Role::first());
+        Administrator::find(3)->roles()->save(Role::first());
+        Administrator::find(4)->roles()->save(Role::first());
+        Administrator::find(5)->roles()->save(Role::first());
+
 
         //create a permission
         Permission::truncate();
